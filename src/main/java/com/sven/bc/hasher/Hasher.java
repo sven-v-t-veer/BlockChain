@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.sven.bc.block.Block;
 
-public class Sha256Hasher {
+public class Hasher {
 	
 	public String sha256(Block b) throws NoSuchAlgorithmException, IOException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");

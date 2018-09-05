@@ -15,7 +15,6 @@ public class BlockSerializerTest {
 		public Block(int id, List<Transaction> transactions, String previousHash) {
 			super(id, transactions, previousHash);
 		}
-		
 	}
 	
 	@Test

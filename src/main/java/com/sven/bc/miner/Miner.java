@@ -16,14 +16,13 @@ public class Miner {
 	
 	public void mine(Block block, BlockChain chain) {
 		String hash = null;
-		block.setPreviousHash(chain.last().getHash());
 		try {
 			while (!goldenHash(hash)) {
 				block.incrementNonce();
 				hash = hasher.sha256(block);
-				block.setHash(hash);
-				chain.add(block);
 			}
+			block.setHash(hash);
+			chain.add(block);
 		} catch (NoSuchAlgorithmException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,7 +30,6 @@ public class Miner {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Block added to chain with hash: " + hash);
 		addReward();
 	}
 	
@@ -41,9 +39,8 @@ public class Miner {
 
 	private boolean goldenHash(String hash) { 
 		if (hash == null) return false;
-		
 		for (int i = 0; i < Constants.DIFFICULTY; i++ ) {
-			if (hash.charAt(i) != 0) {
+			if (hash.charAt(i) != '0') {
 				return false;
 			}
 		}

@@ -13,9 +13,10 @@ public class BlockChainTest {
 	@Test
 	public void blockChainTest() {
 		TestBlock b1 = new TestBlock(0, null, "0");
-		BlockChain chain = new BlockChain(b1);
-		assertEquals(chain.size(), 1);
+		BlockChain chain = new BlockChain();
 		try {
+			chain.add(b1);
+			assertEquals(chain.size(), 1);
 			b1.setHash("0");
 			chain.add(b1);
 			assertEquals(chain.size(), 2);

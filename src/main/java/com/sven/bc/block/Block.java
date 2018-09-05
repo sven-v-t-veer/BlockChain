@@ -5,6 +5,7 @@ import com.sven.bc.serializer.Serializable;
 public interface Block extends Serializable{
 	
 	public byte[] getBytes();
+	public int getId();
 	public String getPreviousHash();
 	public String getHash();
 	public void setHash(String hash);

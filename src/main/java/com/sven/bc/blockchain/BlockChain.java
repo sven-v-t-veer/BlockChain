@@ -20,20 +20,23 @@ public class BlockChain {
 		
 	}
 	
-	private Node head;
+	private Node head = null;
 	private Node tail = null;
 	private int length = 0;
 	
-	public BlockChain(Block block) {
-		this.head = new Node(block);
-		this.tail = head;
-		length = 1;
+	public BlockChain() {
+
 	}
 	
 	public void add(Block block) throws InconsistentHashException {
 		Node node = new Node(block);
-		if (tail.getData().getHash() != block.getPreviousHash()) {
+		if (length != 0 && (tail.getData().getHash() != block.getPreviousHash())) {
 			throw new InconsistentHashException("Previous hash for Block not equal to hash of previous block!");
+		} else if (length == 0) {  //initial block in chain.
+			this.head = new Node(block);
+			this.tail = head;
+			length = 1;
+			return;
 		}
 		if (tail == null) {
 			head.next = node;

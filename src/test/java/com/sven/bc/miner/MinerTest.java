@@ -12,7 +12,9 @@ public class MinerTest {
 	@Test
 	public void minerTest() {
 		Miner miner = new Miner();
-		BlockChain chain = new BlockChain(new TestBlock(0, null, Constants.GENESIS_PREV_HASH));
+		Block initial = new TestBlock(0, null, Constants.GENESIS_PREV_HASH);
+		BlockChain chain = new BlockChain();
+		miner.mine(initial, chain);
 		Block one = new TestBlock(1, null, chain.last().getHash());
 		miner.mine(one, chain);
 		Block two = new TestBlock(2, null, chain.last().getHash());
@@ -22,6 +24,12 @@ public class MinerTest {
 		System.out.println("Blockchain size: " + chain.size());
 		System.out.println("Last block: " + chain.last().toString());
 		System.out.println("Reward: " + miner.getReward());
+		for (int i = 0; i < chain.size(); i++ ) {
+			Block block = chain.get(i);
+			System.out.println("Block: " + block.getId() + " " + block);
+			System.out.println("Previous: " + block.getPreviousHash());
+			System.out.println("Hash: " + block.getHash());
+		}
 	}
 
 }

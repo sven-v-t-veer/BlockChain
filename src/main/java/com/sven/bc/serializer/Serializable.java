@@ -1,5 +1,8 @@
 package com.sven.bc.serializer;
 
-public interface Serializable {
+import com.sven.bc.anotations.SerializedClass;
+
+@SerializedClass
+public class Serializable {
 
 }

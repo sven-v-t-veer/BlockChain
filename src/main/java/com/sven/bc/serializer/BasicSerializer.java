@@ -8,10 +8,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sven.bc.anotations.SerializedField;
-import com.sven.bc.block.Block;
 
-public class BlockSerializer implements Serializer{
+public class BasicSerializer implements Serializer{
 	
+	/**
+	 * Generate a byte[] from the fields annotated with @SerializedField
+	 */
 	@Override
 	public byte[] serialize(Serializable object) {
 		String result = "";
@@ -37,11 +39,17 @@ public class BlockSerializer implements Serializer{
 		}
 	}
 	
+	/**
+	 * Recursive method to obtain all fields from the Class<?> and all it's super classes
+	 * @param fields
+	 * @param clazz
+	 * @return
+	 */
 	protected List<Field> getAllFields(List<Field> fields, Class<?> clazz) {
 		Field[] fieldlist = clazz.getDeclaredFields();
 		AccessibleObject.setAccessible(fieldlist, true);
 		fields.addAll(Arrays.asList(fieldlist));
-		if (clazz.getSuperclass() != Object.class) {
+		if (clazz.getSuperclass() != Object.class) { // No @SerializableField annotation for Object
 			getAllFields(fields, clazz.getSuperclass());
 		}
 		return fields;
